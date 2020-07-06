@@ -71,6 +71,7 @@ class ApplicationController < Sinatra::Base
     user = current_user
     if !params["content"].empty?
     user.tweets.create(content: params["content"])
+    redirect to '/tweets'
     else 
       redirect to '/tweets/new'
     end
@@ -87,7 +88,7 @@ class ApplicationController < Sinatra::Base
 
   get "/users/:username" do
     @user = User.find_by(username: params["username"])
-    erb :'user/show'
+    erb :'users/show'
   end
 
   get "/tweets/:id" do
@@ -135,7 +136,7 @@ class ApplicationController < Sinatra::Base
 
   post "/logout" do
     session.clear
-    redirect "/login"
+    redirect "/"
   end
   
   helpers do

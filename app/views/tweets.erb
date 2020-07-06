@@ -1,6 +1,20 @@
 <h2>Welcome, </h2>
 
 <% @tweets.each.with_index(1) do |tweet, index| %>
+<br>
+----------------------
+<br>
+User: <%= User.find(tweet.user_id).username %> <br>
 Tweet: <%=index%> <br>
-Content: <%=tweet.content%>
+Content: <%=tweet.content%><br>
+<a href="/tweets/<%=tweet.id%>">More options</a>
+<br>
+----------------------
+<br>
 <%end%> 
+
+<footer> 
+  <a href = '/'>Home </a>
+  <a href ='/tweets/new'> New Tweet</a>
+  <a href= '/logout'> Logout</a> 
+   </footer>
