@@ -1,0 +1,15 @@
+
+<% @user.tweets.each do |tweet| %>
+ Tweet: <%= tweet.id %> <br>
+ Content: <%= tweet.content %> <br>
+ ---------------------------
+<br>
+<% end %>
+
+
+<footer> 
+  <a href = '/'>Home</a>
+  <a href ='/tweets/new'> New Tweet</a>
+  <a href= '/tweets'> Tweets </a>
+  <a href='/logout'> Logout</a> 
+   </footer>
