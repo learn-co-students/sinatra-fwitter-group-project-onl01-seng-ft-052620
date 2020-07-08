@@ -1,0 +1,15 @@
+<h3>Sign Up</h3>
+
+<form method='POST' action='/signup'>
+<p>Email</p>
+<p><input type='text' name='email' pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"></p>
+<p>Username</p>
+<p><input type='text' name='username' minlength=1></p>
+<p>Password</p>
+<p><input type='text' name='password' minlength=1></p>
+<p>Confirm Password</p>
+<p><input type='text' name='password_confirmation' minlength=1></p>
+<input type='submit' value='Sign Up'>
+</form>
+<br><br>
+<a href='/login'>Already have an account?</a>
