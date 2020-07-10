@@ -1,3 +1,5 @@
+use Rack::MethodOverride
+
 class UsersController < ApplicationController
 
   get '/signup' do

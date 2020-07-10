@@ -1,3 +1,5 @@
+use Rack::MethodOverride
+
 class TweetsController < ApplicationController
 
   get '/tweets' do
@@ -6,14 +8,19 @@ class TweetsController < ApplicationController
     erb :'tweets/index'
   end
 
-  get 'tweets/new' do
+  get '/tweets/new' do
     redirect_to_if_not_logged_in
     erb :'tweets/new'
   end
 
+  # get '/tweets/show' do
+  #   @tweet = Tweet.find_by_id(params[:id])
+  #   erb :'tweets/show'
+  # end
+
   post '/tweets' do
-    tweet = current_user.tweets.build(params)
-    if tweet.save
+    @tweet = current_user.tweets.build(params)
+    if @tweet.save
       redirect '/tweets'
     else
       redirect '/tweets/new'
@@ -23,7 +30,7 @@ class TweetsController < ApplicationController
   get '/tweets/:id' do
     redirect_to_if_not_logged_in
     @tweet = Tweet.find_by_id(params[:id])
-    erb :'/tweets/show'
+    erb :'tweets/show'
   end
 
   get '/tweets/:id/edit' do
@@ -32,18 +39,21 @@ class TweetsController < ApplicationController
     erb :'tweets/edit'
   end
 
-  patch 'tweets/:id' do
+  patch '/tweets/:id/edit' do
+    redirect_to_if_not_logged_in
     @tweet = Tweet.find_by_id(params[:id])
-    if @tweet.update(content: params[:content])
-      redirect '/tweets'
+    if @tweet.id == current_user.id && params[:content] != ""
+      @tweet.content = params[:content]
+      @tweet.save
+        redirect '/tweets'
     else
-      redirect "tweets/#{@tweet.id}/edit"
+      redirect "/tweets/#{@tweet.id}/edit"
     end
   end
 
   delete '/tweets/:id' do
     @tweet = Tweet.find_by_id(params[:id])
-    if logged_in? && current_user.owns_tweet?(@tweet)
+    if @tweet && logged_in? && @tweet.user_id == current_user.id
       @tweet.destroy
     end
       redirect '/tweets'

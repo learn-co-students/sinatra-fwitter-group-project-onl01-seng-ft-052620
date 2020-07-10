@@ -1,4 +1,5 @@
 require './config/environment'
+use Rack::MethodOverride
 
 class ApplicationController < Sinatra::Base
 
@@ -45,6 +46,21 @@ class ApplicationController < Sinatra::Base
   get '/users/show' do
     erb :'/users/show'
   end
+
+  get '/new' do
+    redirect_to_if_not_logged_in
+    redirect 'tweets/new'
+  end
+
+  # get '/:id/edit' do
+  #   redirect_to_if_not_logged_in
+  #   redirect 'tweets/:id/edit'
+  # end
+
+  # get '/show' do
+  #   redirect_to_if_not_logged_in
+  #   redirect '/tweets/show'
+  # end
 
   helpers do
     def redirect_to_if_logged_in
