@@ -3,7 +3,7 @@ class TweetsController < ApplicationController
     get '/tweets' do
         if logged_in?
             @tweets = Tweet.all
-            erb :'/tweets/index'
+            erb :'tweets/index'
         else
             redirect '/login'
         end
@@ -18,11 +18,11 @@ class TweetsController < ApplicationController
     end
 
     post '/tweets' do
-        if params[:content] == ""
-            redirect '/tweets/new'
-        else
-            @tweet = current_user.tweets.create(content: params[:content])
+        @tweet = current_user.tweets.build(params)
+        if @tweet.save
             redirect "/tweets"
+        else
+            redirect '/tweets/new'
         end 
     end
 
