@@ -1,0 +1,10 @@
+<h2>Welcome, <%= @user.username %></h2>
+<div><input type="submit" value="Create"></div>
+<p>
+    <% @user.tweets.each_with_index do |tweet, index| %>
+        <%= index+1 %>. <%= tweet.content %> <div></div>
+        <a href="/tweets/<%=tweet.id%>">look at this tweet</a>
+        <div>----------</div>
+    <% end %>
+</p>
+<a href="/logout">Log Out</a>
