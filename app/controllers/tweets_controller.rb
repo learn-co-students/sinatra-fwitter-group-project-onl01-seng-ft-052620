@@ -8,12 +8,12 @@ class TweetsController < ApplicationController
 
     get '/tweets/new' do 
         redirect_to_if_not_logged_in
-        erb :'/tweets/new'
+        erb :'tweets/new'
     end 
 
     post '/tweets' do 
-        tweet = current_user.tweets.build(params)
-        if tweet.save 
+        @tweet = current_user.tweets.build(params)
+        if @tweet.save 
             redirect '/tweets'
         else 
             redirect '/tweets/new'
@@ -38,17 +38,20 @@ get '/tweets/:id/edit' do
 end 
 
 patch '/tweets/:id' do 
+    redirect_to_if_not_logged_in
     @tweet = set_tweet
-    if current_user.owns_tweet?(@tweet)
-        @tweet.update(content: params[:content])
-        if @tweet.save
+    if params[:content] == ""
+        redirect "/tweets/#{@tweet.id}/edit"
+    else
+        if current_user.owns_tweet?(@tweet)
+            @tweet.update(content: params[:content])
             redirect '/tweets'
         else 
             redirect "/login"
         end 
     end 
-
 end 
+
 
 delete '/tweets/:id' do 
     set_tweet 

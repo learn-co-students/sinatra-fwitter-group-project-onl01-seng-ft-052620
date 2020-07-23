@@ -6,9 +6,9 @@ class UsersController < ApplicationController
         end 
 
         post '/signup' do 
-            user = User.new(params)
-            if user.save 
-                login_user(user)
+            @user = User.new(params)
+            if @user.save 
+                login_user(@user)
                 redirect '/tweets'
             else 
                 redirect '/signup'
