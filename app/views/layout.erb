@@ -3,10 +3,52 @@
   <head>
     <title>Fwitter</title>
   </head>
+  
+ <style>
+  ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  }
+
+  li {
+    float: left;
+  }
+
+  li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+
+  li a:hover {
+    background-color: #111;
+  }
+  </style>
   <body>
 
     <div class="container">
       <h1>Welcome to Fwitter!</h1>
+            <ul>
+            <li>
+          <a href="/">Main Menu</a>
+        </li>
+        <li>
+          <a href="/tweets">Feed</a>
+        </li>
+        <li>
+          <a href="/tweets/new">Post a tweet</a>
+        </li>
+      </ul>
+      <!--<h2>This is located in layout.erb!</h2>
+      <h2>Don't forget to <strong>yield</strong> your views!</h2>-->
+      <hr>
+      <%= yield %>
+      <hr>
       <h2>This is located in layout.erb!</h2>
       <h2>Don't forget to <strong>yield</strong> your views!</h2>
     </div>
